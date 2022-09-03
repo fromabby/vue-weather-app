@@ -19,6 +19,7 @@
             v-for="searchResult in searchResults"
             :key="`${searchResult.lon}${searchResult.lat}`"
             class="py-2 cursor-pointer"
+            @click="previewCity(searchResult)"
           >
             {{`${searchResult.name}, `}}{{searchResult.state ? `${searchResult.state}, ` : ''}}{{searchResult.country}}
           </li>
@@ -31,8 +32,9 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
-const API_KEY = '662959707ea4e05997a2f396b5280518';
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const limit = 5;
 const searchQuery = ref('');
 const queryTimeout = ref('');
@@ -40,6 +42,18 @@ const queryTimeout = ref('');
 const searchResults = ref(null);
 const searchError = ref(null);
 
+const router = useRouter();
+const previewCity = (searchResult) => {
+    const { name: city, lat, lon } = searchResult;
+    const state = searchResult.state || city;
+
+    router.push({
+        name: "cityView",
+        params: { state, city },
+        query: { lat, lon, preview: true }
+    })
+  }
+  
 const getSearchResults = () => {
   clearTimeout(queryTimeout.value);
   queryTimeout.value = setTimeout(async () => {
@@ -55,7 +69,8 @@ const getSearchResults = () => {
       }
       return;
     }
-    searchResults.value=null;
+    searchResults.value = null;
   }, 300);
+
 };
 </script>
