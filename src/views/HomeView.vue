@@ -44,7 +44,7 @@ import { useRouter } from 'vue-router';
 import CityList from '../components/CityList.vue';
 import CityCardSkeleton from '../components/CityCardSkeleton.vue';
 
-const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+const API_KEY = "662959707ea4e05997a2f396b5280518";
 const limit = 5;
 const searchQuery = ref('');
 const queryTimeout = ref('');
