@@ -71,7 +71,7 @@ const getSearchResults = () => {
       try {
         searchError.value = false;
         // send api request
-        const { data } = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${searchQuery.value}&limit=${limit}&appid=${API_KEY}`);
+        const { data } = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery.value}&limit=${limit}&appid=${API_KEY}`);
         
         searchResults.value = data
       } catch {
